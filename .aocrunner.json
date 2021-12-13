@@ -39,13 +39,13 @@
           "108",
           "1101100"
         ],
-        "time": 0.405995
+        "time": 0.310111
       },
       "part2": {
         "solved": false,
-        "result": null,
+        "result": "1032597",
         "attempts": [],
-        "time": null
+        "time": 5.486632
       }
     },
     {

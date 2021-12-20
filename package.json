@@ -18,7 +18,6 @@
     "aocrunner": "^1.6.0",
     "prettier": "^2.4.1"
   },
-  "dependencies": {},
   "engines": {
     "node": ">=16.13.0"
   }

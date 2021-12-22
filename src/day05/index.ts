@@ -82,7 +82,7 @@ type Grid = number[][];
 
 function getCoveredPoints(line: Line): Point[] {
   let points = [];
-  const {start, end, isHorizontal, isVertical, isDiagonal} = line;
+  const { start, end, isHorizontal, isVertical, isDiagonal } = line;
   const [sortedStart, sortedEnd] = [start, end].sort((a, b) => {
     if (a.x !== b.x) {
       return a.x - b.x;
@@ -93,23 +93,27 @@ function getCoveredPoints(line: Line): Point[] {
     return 0;
   });
 
-  const {x: startX, y: startY} = sortedStart;
-  const {x: endX, y:endY} = sortedEnd;
+  const { x: startX, y: startY } = sortedStart;
+  const { x: endX, y: endY } = sortedEnd;
 
-  // console.log(startX, endX, startY, endY)
   if (isHorizontal || isVertical) {
     for (let x = startX; x <= endX; x++) {
       for (let y = startY; y <= endY; y++) {
         points.push(new Point(x, y));
       }
     }
-  } else if (isDiagonal){
+  } else if (isDiagonal) {
     const diffX = end.x - start.x;
     const diffY = end.y - start.y;
     const count = diffY * Math.sign(diffY);
 
     for (let i = 0; i <= count; i++) {
-      points.push(new Point(start.x + i * Math.sign(diffX), start.y + i * Math.sign(diffY)));
+      points.push(
+        new Point(
+          start.x + i * Math.sign(diffX),
+          start.y + i * Math.sign(diffY),
+        ),
+      );
     }
   }
 
@@ -123,22 +127,21 @@ deepEqual(
 deepEqual(
   getCoveredPoints(new Line("1,3 -> 1,1")),
   ["1,1", "1,2", "1,3"].map((str) => Point.fromString(str as PointString)),
-  'works with points in any order'
+  "works with points in any order",
 );
 
 deepEqual(
   getCoveredPoints(new Line("1,1 -> 3,3")),
   ["1,1", "2,2", "3,3"].map((str) => Point.fromString(str as PointString)),
-  'also works with diagonals'
+  "also works with diagonals",
 );
 deepEqual(
   getCoveredPoints(new Line("9,7 -> 7,9")),
   ["9,7", "8,8", "7,9"].map((str) => Point.fromString(str as PointString)),
-  'also works with diagonals'
+  "also works with diagonals",
 );
 
 function getGrid(lines: Line[], gridSize = 1000) {
-
   return lines.reduce((grid, line) => {
     const coveredPoints = getCoveredPoints(line);
     coveredPoints.forEach(({ x, y }) => {
@@ -162,19 +165,19 @@ const part1 = (rawInput: string) => {
   );
 
   const grid = getGrid(input);
-  return grid.flat().filter(n => n> 1).length;
+  return grid.flat().filter((n) => n > 1).length;
 
   // console.log(getDiagram(input))
 };
 
 const part2 = (rawInput: string) => {
-  const input = parseInput(rawInput).filter((line) =>
-    line.isHorizontal || line.isVertical || line.isDiagonal
+  const input = parseInput(rawInput).filter(
+    (line) => line.isHorizontal || line.isVertical || line.isDiagonal,
   );
-  console.log(input)
+  console.log(input);
 
   const grid = getGrid(input);
-  return grid.flat().filter(n => n>1).length;
+  return grid.flat().filter((n) => n > 1).length;
 };
 
 run({
